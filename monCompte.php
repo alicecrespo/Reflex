@@ -1,0 +1,104 @@
+<?php
+session_start();
+ 
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=reflex', 'root', '');
+
+ 
+//if(isset($_GET['idUtilisateur']) AND $_GET['idUtilisateur'] > 0) {
+if(isset($_COOKIE['idUtilisateur']) AND $_COOKIE['idUtilisateur'] > 0) {
+    
+    // ICI ON VERIFIE QUE CEST BIEN LE BON MDP, POUR PAS QU'UN UTILISATEUR MALVEILLANT SE CONNECTE AVEC SES PROPRES COOKIES
+
+    $valid = intval($_COOKIE['idUtilisateur']);
+    $reqmdp = $bdd->prepare("SELECT * FROM utilisateur WHERE motDePasse = ? AND idUtilisateur = ?");
+    $reqmdp->execute(array($_COOKIE['mdp'], $valid));
+    $count = $reqmdp->rowCount();
+
+
+    if(isset($_COOKIE['mdp']) and ($count == 1)){ 
+        $getid = intval($_COOKIE['idUtilisateur']);
+        $requser = $bdd->prepare('SELECT * FROM utilisateur WHERE idUtilisateur = ?');
+        $requser->execute(array($getid));
+        $userinfo = $requser->fetch();
+
+        setcookie('idUtilisateur', $_COOKIE['idUtilisateur'], time() + (60*2));
+         
+        setcookie('mdp', $_COOKIE['mdp'], time() + (60*2));
+    } else {
+        echo "Fabriquer des cookies, tu ne feras point.";
+    }
+
+
+?>
+
+
+
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        
+        
+        
+        <link href="css/monCompte.css" rel="stylesheet">
+        <title>Mon compte</title>
+    </head>
+
+    <body>
+
+        <?php include("includes/header.php"); ?>
+
+
+        <!-- <section class="barreDeRecherche">
+            <label for="site-search">Rechercher un utilisateur :</label>
+            <input type="search" id="site-search" name="recherche utilisateur" aria-label="Search through site content">
+            <button>Rechercher</button>
+        </section> -->
+
+        <div id="milieuPage">
+        
+        <!-- check si c'est admin ou autre -->
+        <nav class="menuAdmin">
+            <div class="menuAdmin">
+                <ul>
+                    <?php
+                        if(isset($_COOKIE['idUtilisateur']) AND $userinfo['idUtilisateur'] == $_COOKIE['idUtilisateur']) {
+                    ?>
+                    <br />
+
+                    <li><a href="envoyerMail.php">Envoyer un mail</a></li>
+                    <li><a href="editionprofil.php">Editer mon profil</a></li>
+                    <li><a href="resultatsRechercheGestionnaire.php">Rechercher un utilisateur</a></li>
+                    <li><a href="cgu_modifier.php">Gérer la CGU</a></li>
+                    <li><a href="deconnexion.php">Déconnexion</a></li>
+                    <?php
+                    }
+                    ?>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="mesInfos">
+            <h1>Vos informations</h1>
+
+            <ul>
+                <li>Genre : <?php echo $userinfo['genre']; ?></li><br>
+                <li>Nom : <?php echo $userinfo['nom']; ?> </li><br>
+                <li>Prénom : <?php echo $userinfo['prenom']; ?></li><br>
+                <li>Adresse :</li><br>
+                <li>Adresse mail : <?php echo $userinfo['mail']; ?></li>
+
+            </ul>
+        </section>
+        </div>
+
+        <?php include("includes/footer.php"); ?>
+
+    </body>
+</html>
+<?php   
+} else {
+    header("Location: connexion.php");
+}
+
+?>

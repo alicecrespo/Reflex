@@ -1,0 +1,87 @@
+.formulaire
+{
+	margin-left: 12%;
+}
+
+form
+{
+	border : 2px grey solid;
+	border-radius: 10px;
+	background-color: rgb(173,179,197);
+	/*margin-right : 5em;
+	margin-left: 5em;*/
+	margin : auto;
+	margin-bottom : 16em;
+	margin-top: 16em;
+	padding-left : 20em;
+	padding-right: 5em;
+	width : 700px;
+	
+	
+}
+label strong
+{
+	color : red;
+}
+
+#champsMail
+{
+	display: flex;
+	padding:0.8em; 
+	justify-content: space-around;
+
+}
+.corps
+{
+	
+	flex-direction:column;
+	font-family: "Calibri";
+	font-size: 1.2em;
+	margin-bottom: 0.4em;
+	margin-top: 0.4em;
+	
+	color : rgb(48,82,231);
+
+	/*border:1px black solid;*/
+	
+}
+.titre 
+{
+	padding-left: 2.5em;
+	padding-bottom: 0.5em;
+	color : rgb(243,143,50);
+	font-size: 2.5em;
+}
+/*p
+{
+	width : 400px;
+}*/
+.champs 
+{
+	color : red;
+	padding-left:2em;
+	padding-right: 2em;
+	padding-top: 1em;
+	margin-left: 5em;
+	font-size : 1em;
+	font-family:"Calibri";
+/*	border:1px black solid;*/
+	/*width : 200px;*/
+	
+	
+}
+
+.envoi
+{
+	padding-left:12em;
+	
+}
+
+input,textarea
+{
+	border-radius: 10px;
+	background-color: rgb(243,241,240);
+	font-size: 1.2em;
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+}
