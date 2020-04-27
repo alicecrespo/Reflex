@@ -7,7 +7,7 @@ You can find here all the code architecture of the Reflex's Product
 
 (1) Il manque à envoyer des mails avec token
 
-(2) Faire graphiques résultat test client
+(2) Faire graphiques résultat test client (--DONE--)
 
 (3) Modifier quelques CSS
 
