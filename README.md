@@ -10,3 +10,5 @@ You can find here all the code architecture of the Reflex's Product
 (2) Faire graphiques résultat test client
 
 (3) Modifier quelques CSS
+
+(4) Traduction textes en Anglais
