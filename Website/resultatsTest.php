@@ -40,6 +40,8 @@
 			</tr>
 
 		</table>
+		
+	<img src="radar.php">
 
 	<div class="commentaire">
 		<p><label for="comGestionnaire"> Commentaires du gestionnaire : </label></p>

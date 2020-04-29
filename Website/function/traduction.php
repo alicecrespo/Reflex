@@ -13,10 +13,10 @@ function trad($fr, $en){
 
 function getFlag(){
 	if (isset($_COOKIE['langue']) && $_COOKIE['langue']=="en"){
-		return './img/FR';
+		return './img/FR.png';
 	}
 	else{
-		return './img/UK';
+		return './img/UK.png';
 	}
 }
 

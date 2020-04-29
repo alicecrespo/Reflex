@@ -4,6 +4,7 @@
     include 'function/cookie.php';
     include 'function/access.php';
 
+
 ?>
 
 <!DOCTYPE html>
@@ -18,13 +19,7 @@
 
 	<?php include("includes/header.php"); ?>
 
-	<?php 
 
-		if (isset($_POST['recherche']) AND !empty($_POST['recherche'])) {
-		    $research = htmlspecialchars($_POST['recherche']);
-		    $results = $bdd->query('SELECT * FROM utilisateur WHERE nom LIKE "' . $research . '%" OR prenom LIKE "' . $research . '%"'); 
-		}
-	?>
 
 
 	<?php
@@ -32,7 +27,20 @@
 	if(isset($access)){
 		if($access == 2){
 
+			include 'function/admin.php';
+			
+
+			if (isset($_POST['recherche'])) {
+			    $research = htmlspecialchars($_POST['recherche']);
+			    $results = $bdd->query('SELECT * FROM utilisateur WHERE nom LIKE "' . $research . '%" OR prenom LIKE "' . $research . '%"'); 
+			} else if(isset($_GET['research'])) {
+				$research = $_GET['research'];
+				$results = $bdd->query('SELECT * FROM utilisateur WHERE nom LIKE "' . $research . '%" OR prenom LIKE "' . $research . '%"'); 
+			}
+
 			?>
+
+
 
 			<div class="titre"><h3>Résultat(s) de votre recherche</h3></div>
 				
@@ -54,14 +62,28 @@
 									<div class="Genre">Genre : <?= $r['genre'] ?></div>
 									<div class="Nom">Nom : <?= $r['nom'] ?></div>
 									<div class="Prénom">Prénom : <?= $r['prenom'] ?></div>
-									<div class="Adresse">Adresse : </div>
+									<div class="Adresse">Adresse : <?= $r['adresse'] ?></div>
 									<div class="Adresse mail">Adresse mail : <?= $r['mail'] ?></div>
 
 
 									<div class="options">
-										<p class="bannir"><a href="#" style="text-decoration:none">Upgrade</a></p>
-										<p class="modifier"><a href="#" style="text-decoration:none">Modifier</a></p>
-										<p class="supprimer"><a href="#" style="text-decoration:none">Supprimer</a></p>
+										<?php 
+										if($r['permission'] == 0){
+											?>
+											<p class="upgrade"><a href="resultatsRechercheAdministrateur.php?upgrade=<?= $r['idUtilisateur'] ?>&research=<?= $research ?>" style="text-decoration:none">Upgrade</a></p>
+										
+											<?php 
+										}else if($r['permission'] == 1){
+											?>
+
+											<p class="downgrade"><a href="resultatsRechercheAdministrateur.php?downgrade=<?= $r['idUtilisateur'] ?>&research=<?= $research ?>" style="text-decoration:none">Downgrade</a></p>
+
+											<?php
+										}
+
+											?>
+										
+										<p class="supprime"><a href="resultatsRechercheAdministrateur.php?supprime=<?= $r['idUtilisateur'] ?>&research=<?= $research ?>" style="text-decoration:none">Supprimer</a></p>
 									</div>
 									</div>
 

@@ -48,7 +48,7 @@ include('./function/traduction.php');
 						
 					</ul>
 				</nav>
-				<img class="drapeau" src= <?php echo getFlag() ?> '.png' onclick="afficher();">
+				<img class="drapeau" src= '<?php echo getFlag() ?>' onclick="afficher();">
 			</div>
 
 			
